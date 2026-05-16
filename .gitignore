@@ -1,0 +1,15 @@
+.DS_Store
+node_modules
+.next
+dist
+coverage
+*.log
+.env
+.env.local
+.env.production.local
+.env.development.local
+.gcloud
+.gcloud-temp
+config/gcp.env
+config/cloudrun.env.yaml
+.turbo

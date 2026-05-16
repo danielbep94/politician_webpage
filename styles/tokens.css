@@ -1,0 +1,14 @@
+:root {
+  --color-background: #f7f5ef;
+  --color-foreground: #10212f;
+  --color-line: #d9dfdc;
+  --color-brand: #0e4f59;
+  --color-brand-dark: #0a3137;
+  --color-brand-soft: #dbe9e5;
+  --color-accent: #b9663d;
+  --color-accent-soft: #f4e5dc;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f0f4f1;
+  --font-sans: "Manrope";
+  --font-serif: "Bitter";
+}
