@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 
+import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { Container } from "@/components/layout/Container";
 import { PortableTextRenderer } from "@/components/portable-text/PortableTextRenderer";
 import { PageIntro } from "@/components/seo/PageIntro";
@@ -58,6 +59,13 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
         title={post.title}
         description={post.excerpt}
       >
+        <Breadcrumbs
+          items={[
+            { label: "Inicio", href: "/" },
+            { label: "Noticias", href: "/noticias" },
+            { label: post.title }
+          ]}
+        />
         <Card className="space-y-4">
           <Badge>{post.category}</Badge>
           <p className="text-sm text-slate-500">{formatDate(post.publishedAt)}</p>

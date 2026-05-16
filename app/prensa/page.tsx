@@ -41,9 +41,8 @@ export default async function PressPage() {
             <Card className="space-y-5">
               <h2 className="font-serif text-3xl text-foreground">Kit de prensa</h2>
               <p className="leading-8 text-slate-700">
-                Listo para incluir fichas rápidas, logotipos, fotografías oficiales,
-                semblanza y líneas narrativas prioritarias. El proyecto ya tiene la
-                estructura para que Sanity administre estos activos.
+                Incluye fichas rápidas, logotipos, fotografías oficiales,
+                semblanza y líneas narrativas prioritarias para cobertura.
               </p>
               <div className="space-y-4">
                 {mediaAssets.map((asset) => (

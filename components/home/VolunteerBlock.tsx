@@ -10,15 +10,15 @@ export function VolunteerBlock() {
         <div className="grid gap-6 rounded-[2rem] bg-brand p-6 text-white shadow-soft sm:p-8 lg:grid-cols-[1.1fr_0.9fr] lg:p-10">
           <div className="space-y-5">
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-white/75">
-              Captación de voluntarios
+              Súmate al equipo
             </p>
             <h2 className="font-serif text-3xl sm:text-4xl">
               La campaña crece mejor cuando la comunidad se vuelve protagonista.
             </h2>
             <p className="max-w-2xl leading-8 text-white/80">
-              Desde activación territorial hasta redes, logística y defensa del
-              voto, el flujo de voluntariado queda listo para integrarse con Sanity
-              y evolucionar hacia automatizaciones futuras.
+              Hay muchas formas de participar: recorridos de territorio, redes
+              sociales, logística de eventos, diseño y defensa del voto. Tú decides
+              cómo aportas y cuándo.
             </p>
             <div className="grid gap-3 sm:grid-cols-2">
               {[
@@ -38,12 +38,11 @@ export function VolunteerBlock() {
           </div>
           <div className="rounded-[1.75rem] bg-white/10 p-6 backdrop-blur">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/65">
-              CTA principal
+              Tu próximo paso
             </p>
             <p className="mt-3 text-sm leading-7 text-white/80">
-              Convierte interés en acción con un formulario claro, campos útiles
-              para operación y una página de agradecimiento pensada para mejorar
-              conversión.
+              Regístrate en menos de dos minutos. Nuestro equipo se pondrá en
+              contacto para coordinar tu participación según tu disponibilidad.
             </p>
             <Link
               href="/sumate"

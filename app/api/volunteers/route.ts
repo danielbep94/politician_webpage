@@ -1,9 +1,22 @@
 import { NextResponse } from "next/server";
 
 import { sanityWriteClient } from "@/lib/sanity/client";
+import { getIp, isRateLimited } from "@/lib/rate-limit";
 import { volunteerSchema } from "@/lib/validation/volunteer";
 
 export async function POST(request: Request) {
+  const ip = getIp(request);
+
+  if (isRateLimited(ip)) {
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Demasiados intentos. Por favor espera unos minutos antes de volver a intentarlo."
+      },
+      { status: 429 }
+    );
+  }
+
   try {
     const payload = await request.json();
     const result = volunteerSchema.safeParse(payload);
@@ -48,3 +61,4 @@ export async function POST(request: Request) {
     );
   }
 }
+

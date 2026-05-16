@@ -18,8 +18,8 @@ export async function Footer() {
             Cercanía, claridad y seguimiento para construir confianza pública.
           </h2>
           <p className="max-w-md text-sm leading-7 text-white/75">
-            Plataforma preparada para crecer con noticias, propuestas, agenda,
-            voluntariado y contenidos gestionados desde Sanity CMS.
+            Propuestas claras, agenda pública, noticias territoriales y
+            participación ciudadana real para construir una comunidad mejor.
           </p>
         </div>
 

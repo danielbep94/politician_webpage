@@ -14,6 +14,7 @@ export function HeroSection({ siteSettings, candidate }: HeroSectionProps) {
   return (
     <section className="overflow-hidden border-b border-line bg-hero-grid py-14 sm:py-16 lg:py-24">
       <Container className="grid gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:items-center lg:gap-16">
+        {/* CTA column — always visible */}
         <div className="space-y-7">
           <Badge>Visibilidad pública con propósito</Badge>
           <div className="space-y-5">
@@ -58,7 +59,8 @@ export function HeroSection({ siteSettings, candidate }: HeroSectionProps) {
           </div>
         </div>
 
-        <div className="relative overflow-hidden rounded-[2rem] border border-line bg-white p-6 shadow-soft sm:p-8">
+        {/* Candidate card — hidden on mobile to keep CTA above the fold */}
+        <div className="relative hidden overflow-hidden rounded-[2rem] border border-line bg-white p-6 shadow-soft sm:p-8 md:block">
           <div className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-brand to-accent" />
           <p className="text-sm font-semibold uppercase tracking-[0.22em] text-brand">
             {candidate.role}
@@ -88,7 +90,7 @@ export function HeroSection({ siteSettings, candidate }: HeroSectionProps) {
             </div>
           </div>
           <div className="mt-6 rounded-[1.5rem] bg-brand-dark p-5 text-white">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/65">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/80">
               Compromiso central
             </p>
             <p className="mt-2 text-sm leading-7 text-white/85">

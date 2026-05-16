@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { type FormEvent, useState, useTransition } from "react";
 
@@ -21,12 +22,15 @@ const initialForm: VolunteerPayload = {
   phone: "",
   community: "",
   area: "",
-  availability: ""
+  availability: "",
+  website: "" // honeypot
 };
 
 export function VolunteerForm() {
   const router = useRouter();
   const [form, setForm] = useState<VolunteerPayload>(initialForm);
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
+  const [privacyError, setPrivacyError] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -42,6 +46,12 @@ export function VolunteerForm() {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setSubmitError(null);
+    setPrivacyError(false);
+
+    if (!privacyAccepted) {
+      setPrivacyError(true);
+      return;
+    }
 
     const result = volunteerSchema.safeParse(form);
 
@@ -59,17 +69,19 @@ export function VolunteerForm() {
 
     setErrors({});
     setIsSubmitting(true);
+
     try {
       const response = await fetch("/api/volunteers", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(result.data)
       });
 
       if (!response.ok) {
-        setSubmitError("No pudimos registrar tu participación. Intenta nuevamente.");
+        const data = await response.json().catch(() => ({}));
+        setSubmitError(
+          data?.message ?? "No pudimos registrar tu participación. Intenta nuevamente."
+        );
         return;
       }
 
@@ -86,12 +98,25 @@ export function VolunteerForm() {
   }
 
   return (
-    <form className="space-y-5" onSubmit={handleSubmit}>
+    <form className="space-y-5" onSubmit={handleSubmit} noValidate>
+      {/* Honeypot: hidden from humans, filled by bots — reject server-side if non-empty */}
+      <input
+        type="text"
+        name="website"
+        value={form.website ?? ""}
+        onChange={(e) => updateField("website", e.target.value)}
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="sr-only"
+      />
+
       <div className="grid gap-5 md:grid-cols-2">
         <Input
           id="volunteer-name"
           label="Nombre"
           placeholder="Tu nombre completo"
+          autoComplete="name"
           value={form.name}
           error={errors.name}
           onChange={(event) => updateField("name", event.target.value)}
@@ -101,6 +126,7 @@ export function VolunteerForm() {
           type="email"
           label="Email"
           placeholder="tu@email.com"
+          autoComplete="email"
           value={form.email}
           error={errors.email}
           onChange={(event) => updateField("email", event.target.value)}
@@ -113,6 +139,7 @@ export function VolunteerForm() {
           type="tel"
           label="Teléfono"
           placeholder="55 0000 0000"
+          autoComplete="tel"
           value={form.phone}
           error={errors.phone}
           onChange={(event) => updateField("phone", event.target.value)}
@@ -121,6 +148,7 @@ export function VolunteerForm() {
           id="community"
           label="Colonia o comunidad"
           placeholder="Ej. Colonia del Valle"
+          autoComplete="address-level2"
           value={form.community}
           error={errors.community}
           onChange={(event) => updateField("community", event.target.value)}
@@ -146,7 +174,44 @@ export function VolunteerForm() {
         />
       </div>
 
-      {submitError ? <p className="text-sm text-red-600">{submitError}</p> : null}
+      <label className="flex cursor-pointer items-start gap-3 text-sm text-slate-700">
+        <input
+          type="checkbox"
+          className="mt-0.5 h-4 w-4 shrink-0 rounded border-line accent-brand"
+          checked={privacyAccepted}
+          onChange={(e) => {
+            setPrivacyAccepted(e.target.checked);
+            setPrivacyError(false);
+          }}
+          aria-required="true"
+          aria-describedby={privacyError ? "privacy-error-volunteer" : undefined}
+        />
+        <span>
+          Acepto el{" "}
+          <Link
+            href="/privacidad"
+            className="font-medium text-brand underline underline-offset-4"
+            target="_blank"
+          >
+            aviso de privacidad
+          </Link>{" "}
+          y el tratamiento de mis datos para coordinar mi participación como voluntario/a.
+        </span>
+      </label>
+
+      {/* aria-live: announces submission status to screen readers */}
+      <div aria-live="polite" aria-atomic="true">
+        {privacyError ? (
+          <p id="privacy-error-volunteer" className="text-sm text-red-600" role="alert">
+            Debes aceptar el aviso de privacidad para continuar.
+          </p>
+        ) : null}
+        {submitError ? (
+          <p className="text-sm text-red-600" role="alert">
+            {submitError}
+          </p>
+        ) : null}
+      </div>
 
       <Button type="submit" size="lg" disabled={isSubmitting || isPending}>
         {isSubmitting || isPending ? "Registrando..." : "Quiero sumarme"}

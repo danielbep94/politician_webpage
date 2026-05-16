@@ -11,5 +11,6 @@ export const navigationLinks = [
 
 export const footerLinks = [
   { href: "/sumate", label: "Súmate" },
-  { href: "/gracias", label: "Gracias" }
+  { href: "/privacidad", label: "Aviso de privacidad" }
 ];
+

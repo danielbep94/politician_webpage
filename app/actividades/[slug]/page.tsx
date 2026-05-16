@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 
 import { ActivityGallery } from "@/components/activities/ActivityGallery";
 import { ActivityVideoBlock } from "@/components/activities/ActivityVideoBlock";
+import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { Container } from "@/components/layout/Container";
 import { PortableTextRenderer } from "@/components/portable-text/PortableTextRenderer";
 import { PageIntro } from "@/components/seo/PageIntro";
@@ -81,6 +82,13 @@ export default async function ActivityDetailPage({
         title={activity.title}
         description={activity.excerpt}
       >
+        <Breadcrumbs
+          items={[
+            { label: "Inicio", href: "/" },
+            { label: "Actividades", href: "/actividades" },
+            { label: activity.title }
+          ]}
+        />
         <Card className="space-y-4">
           <div className="flex flex-wrap items-center gap-2">
             {activity.categories.map((category) => (

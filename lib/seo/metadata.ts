@@ -84,6 +84,8 @@ export function buildPageMetadata({
     },
     twitter: {
       card: "summary_large_image",
+      site: process.env.NEXT_PUBLIC_TWITTER_HANDLE || "@impulsocomunitario",
+      creator: process.env.NEXT_PUBLIC_TWITTER_HANDLE || "@impulsocomunitario",
       title: socialTitle,
       description: metaDescription,
       images: [socialImage.url]

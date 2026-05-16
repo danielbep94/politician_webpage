@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 
+import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { Container } from "@/components/layout/Container";
 import { PageIntro } from "@/components/seo/PageIntro";
 import { StructuredData } from "@/components/seo/StructuredData";
@@ -54,7 +55,15 @@ export default async function ProposalDetailPage({
         eyebrow={proposal.theme}
         title={proposal.title}
         description={proposal.summary}
-      />
+      >
+        <Breadcrumbs
+          items={[
+            { label: "Inicio", href: "/" },
+            { label: "Propuestas", href: "/propuestas" },
+            { label: proposal.title }
+          ]}
+        />
+      </PageIntro>
 
       <section className="py-16 sm:py-20">
         <Container>

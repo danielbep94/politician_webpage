@@ -8,7 +8,7 @@ export function buildOrganizationJsonLd(
 ) {
   return {
     "@context": "https://schema.org",
-    "@type": "PoliticalParty",
+    "@type": "Organization",
     name: siteSettings.title,
     description: siteSettings.description,
     url: siteSettings.url,
@@ -18,6 +18,18 @@ export function buildOrganizationJsonLd(
       name: candidate.name,
       jobTitle: candidate.role
     }
+  };
+}
+
+export function buildCandidateJsonLd(candidate: Candidate, baseUrl: string) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: candidate.name,
+    jobTitle: candidate.role,
+    description: candidate.summary,
+    email: candidate.email,
+    url: `${baseUrl}/sobre-mi`
   };
 }
 
