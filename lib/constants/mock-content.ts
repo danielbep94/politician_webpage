@@ -78,14 +78,14 @@ export const siteSettingsMock: SiteSettings = {
   heroMessage: "Una agenda clara para resolver lo cotidiano con visión de futuro.",
   heroSubheadline:
     "Escuchar, organizar y ejecutar con la comunidad al centro. Propuestas medibles, cercanas y accionables.",
-  defaultOgImage: "/images/og-cover.svg",
+  defaultOgImage: "/images/media/session-horizontal.png",
   defaultOgImageAsset: createImageWithAlt(
-    "/images/og-cover.svg",
+    "/images/media/session-horizontal.png",
     "Imagen social principal de Impulso Comunitario"
   )
 };
 
-export const candidateMock: Candidate = {
+export const candidateMock: Candidate & { portrait?: ImageWithAlt } = {
   name: "Mariana Torres",
   shortName: "Mariana",
   role: "Candidata ciudadana",
@@ -115,7 +115,11 @@ export const candidateMock: Candidate = {
     { label: "Instagram", href: "https://instagram.com" },
     { label: "Facebook", href: "https://facebook.com" },
     { label: "YouTube", href: "https://youtube.com" }
-  ]
+  ],
+  portrait: createImageWithAlt(
+    "/images/media/candidate-portrait.png",
+    "Fotografía oficial de Mariana Torres, candidata ciudadana"
+  )
 };
 
 export const prioritiesMock: Priority[] = [
@@ -257,7 +261,11 @@ export const postsMock: Post[] = [
     category: "Territorio",
     publishedAt: "2026-04-28",
     readingTime: "4 min",
-    featured: true
+    featured: true,
+    coverImage: createImageWithAlt(
+      "/images/media/activity-youth-workshop.png",
+      "Jóvenes emprendedores del centro participando en un taller"
+    )
   },
   {
     title: "Nueva agenda vecinal para recuperar parques",
@@ -277,7 +285,11 @@ export const postsMock: Post[] = [
     category: "Comunidad",
     publishedAt: "2026-04-20",
     readingTime: "3 min",
-    featured: true
+    featured: true,
+    coverImage: createImageWithAlt(
+      "/images/media/news-park-recovery.png",
+      "Familias disfrutando del parque comunitario revitalizado"
+    )
   },
   {
     title: "Mesa ciudadana sobre seguridad de proximidad",
@@ -296,7 +308,11 @@ export const postsMock: Post[] = [
     ),
     category: "Seguridad",
     publishedAt: "2026-04-11",
-    readingTime: "5 min"
+    readingTime: "5 min",
+    coverImage: createImageWithAlt(
+      "/images/media/news-security-meeting.png",
+      "Mesa ciudadana discutiendo seguridad de proximidad en la colonia"
+    )
   }
 ];
 
@@ -362,17 +378,17 @@ export const activitiesMock: Activity[] = [
     publishedAt: "2026-05-06T10:00:00.000Z",
     location: "Parque principal, Colonia del Valle",
     coverImage: createImageWithAlt(
-      "/images/media/session-horizontal.svg",
+      "/images/media/session-horizontal.png",
       "Mariana Torres conversando con vecinos durante una asamblea vecinal",
       "Vecinas y vecinos priorizaron cruces y trayectos escolares."
     ),
     gallery: [
       createImageWithAlt(
-        "/images/media/session-horizontal.svg",
+        "/images/media/session-horizontal.png",
         "Mesa de trabajo comunitaria con mapas y notas de prioridades"
       ),
       createImageWithAlt(
-        "/images/og-cover.svg",
+        "/images/media/activity-neighborhood-walk.png",
         "Resumen visual con acuerdos de movilidad segura"
       )
     ],
@@ -395,7 +411,7 @@ export const activitiesMock: Activity[] = [
       metaDescription:
         "Conoce los acuerdos, hallazgos y próximos pasos de la asamblea vecinal sobre movilidad segura en Colonia del Valle.",
       ogImage: createImageWithAlt(
-        "/images/media/session-horizontal.svg",
+        "/images/media/session-horizontal.png",
         "Asamblea vecinal sobre movilidad segura"
       ),
       canonical:
@@ -422,12 +438,12 @@ export const activitiesMock: Activity[] = [
     publishedAt: "2026-05-04T14:30:00.000Z",
     location: "Colonias San Miguel Norte y Centro",
     coverImage: createImageWithAlt(
-      "/images/media/session-horizontal.svg",
+      "/images/media/activity-neighborhood-walk.png",
       "Equipo territorial durante un recorrido barrial de diagnóstico"
     ),
     gallery: [
       createImageWithAlt(
-        "/images/og-cover.svg",
+        "/images/media/news-security-meeting.png",
         "Mapa de incidencias levantadas durante el recorrido"
       )
     ],
@@ -466,7 +482,7 @@ export const activitiesMock: Activity[] = [
     publishedAt: "2026-04-30T09:00:00.000Z",
     location: "Casa comunitaria de San Miguel",
     coverImage: createImageWithAlt(
-      "/images/media/session-horizontal.svg",
+      "/images/media/activity-youth-workshop.png",
       "Mesa de diálogo con jóvenes sobre empleo local y capacitación"
     ),
     gallery: [],
@@ -517,9 +533,9 @@ export const mediaAssetsMock: MediaAsset[] = [
     title: "Sesión oficial horizontal",
     kind: "photo",
     description: "Fotografía oficial para uso en medios y publicaciones digitales.",
-    fileUrl: "/images/media/session-horizontal.svg",
+    fileUrl: "/images/media/session-horizontal.png",
     image: createImageWithAlt(
-      "/images/media/session-horizontal.svg",
+      "/images/media/session-horizontal.png",
       "Fotografia oficial horizontal para prensa"
     )
   },

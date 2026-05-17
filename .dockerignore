@@ -4,5 +4,16 @@
 node_modules
 npm-debug.log
 README.md
+CONTRIBUTING.md
 docs
 config
+scripts
+.env
+.env.local
+.env.production.local
+.env.development.local
+tsconfig.tsbuildinfo
+.gcloud
+.gcloud-temp
+.sanity
+coverage

@@ -142,6 +142,7 @@ export type Post = {
   publishedAt: string;
   readingTime: string;
   featured?: boolean;
+  coverImage?: ImageWithAlt;
 };
 
 export type Event = {

@@ -70,7 +70,14 @@ async function sanityFetch<T>({
       }
     });
 
-    return result ?? fallback;
+    // Use fallback when Sanity returns null or an empty array (CMS not yet populated)
+    if (result === null || result === undefined) {
+      return fallback;
+    }
+    if (Array.isArray(result) && result.length === 0 && Array.isArray(fallback) && fallback.length > 0) {
+      return fallback;
+    }
+    return result;
   } catch {
     return fallback;
   }
