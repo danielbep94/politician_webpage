@@ -22,10 +22,10 @@ export function CitizenContactBlock() {
             </p>
             <div className="grid gap-3 sm:grid-cols-2">
               {[
-                "Temas de interés segmentados",
-                "Mensaje directo y simple",
-                "Base para CRM futuro",
-                "Seguimiento operativo escalable"
+                "Tu mensaje llega directo al equipo",
+                "Selecciona el tema que más te preocupa",
+                "Respondemos con seguimiento real",
+                "Toda solicitud recibe atención"
               ].map((item) => (
                 <div
                   key={item}

@@ -20,9 +20,8 @@ import {
 } from "@/lib/sanity/api";
 
 export const metadata = buildPageMetadata({
-  title: "Inicio",
   description:
-    "Sitio institucional-campaña con propuestas claras, noticias, agenda pública y captación de voluntariado.",
+    "Propuestas claras, agenda pública y participación ciudadana real para construir una comunidad mejor.",
   pathname: "/"
 });
 

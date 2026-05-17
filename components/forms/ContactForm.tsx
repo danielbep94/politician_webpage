@@ -2,14 +2,14 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { type FormEvent, useState, useTransition } from "react";
+import { type FormEvent, useRef, useState, useTransition } from "react";
 
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
 import { Textarea } from "@/components/ui/Textarea";
 import { contactTopics } from "@/lib/constants/mock-content";
-import { trackEvent } from "@/lib/analytics";
+import { trackEvent, trackFormStart } from "@/lib/analytics";
 import { contactSchema, type ContactPayload } from "@/lib/validation/contact";
 
 type FormErrors = Partial<Record<keyof ContactPayload, string>>;
@@ -32,6 +32,15 @@ export function ContactForm() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isPending, startTransition] = useTransition();
+  // Fires form_start only on the first field interaction — never again
+  const hasTrackedStart = useRef(false);
+
+  function handleFirstFocus() {
+    if (!hasTrackedStart.current) {
+      hasTrackedStart.current = true;
+      trackFormStart("contact");
+    }
+  }
 
   function updateField<K extends keyof ContactPayload>(
     field: K,
@@ -117,6 +126,7 @@ export function ContactForm() {
           value={form.name}
           error={errors.name}
           onChange={(event) => updateField("name", event.target.value)}
+          onFocus={handleFirstFocus}
         />
         <Input
           id="email"

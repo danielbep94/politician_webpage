@@ -4,6 +4,8 @@ import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { Badge } from "@/components/ui/Badge";
 import { buttonVariants } from "@/components/ui/Button";
+import { SocialLinks } from "@/components/ui/SocialLinks";
+import { TrackedLink } from "@/components/ui/TrackedLink";
 import type { Candidate, ImageWithAlt, SiteSettings } from "@/lib/types";
 
 type HeroSectionProps = {
@@ -69,14 +71,18 @@ export function HeroSection({ siteSettings, candidate }: HeroSectionProps) {
           </div>
 
           <div className="flex flex-col gap-3 sm:flex-row">
-            <Link
+            <TrackedLink
               href="/sumate"
+              trackingLabel="Súmate como voluntario"
+              trackingSection="hero"
               className={buttonVariants({ size: "lg", className: "w-full sm:w-auto" })}
             >
               Súmate como voluntario
-            </Link>
-            <Link
+            </TrackedLink>
+            <TrackedLink
               href="/propuestas"
+              trackingLabel="Conoce las propuestas"
+              trackingSection="hero"
               className={buttonVariants({
                 variant: "secondary",
                 size: "lg",
@@ -84,7 +90,7 @@ export function HeroSection({ siteSettings, candidate }: HeroSectionProps) {
               })}
             >
               Conoce las propuestas
-            </Link>
+            </TrackedLink>
           </div>
 
           <div className="grid gap-3 sm:grid-cols-3">
@@ -127,6 +133,8 @@ export function HeroSection({ siteSettings, candidate }: HeroSectionProps) {
           <h2 className="mt-4 font-serif text-3xl text-foreground">
             {candidate.name}
           </h2>
+          {/* Social links — rendered if the candidate has social profiles */}
+          <SocialLinks links={candidate.socialLinks} className="mt-3" />
           <p className="mt-4 text-base leading-8 text-slate-700">
             {candidate.headline}
           </p>

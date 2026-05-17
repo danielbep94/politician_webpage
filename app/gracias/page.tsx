@@ -7,10 +7,13 @@ import { Card } from "@/components/ui/Card";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
 export const metadata = buildPageMetadata({
-  title: "Gracias",
-  description: "Página de agradecimiento posterior a contacto o voluntariado.",
+  title: "Gracias por tu mensaje",
+  description: "Recibimos tu participación. Nuestro equipo estará en contacto contigo pronto.",
   pathname: "/gracias"
 });
+
+// Thank-you confirmation pages must not appear in search results
+export const robots = { index: false, follow: false };
 
 export default function ThankYouPage() {
   return (
@@ -18,7 +21,7 @@ export default function ThankYouPage() {
       <PageIntro
         eyebrow="Gracias"
         title="Tu mensaje ya es parte de la conversación."
-        description="Esta página ayuda a cerrar mejor el flujo de conversión y deja una siguiente acción clara."
+        description="Lo recibimos. Nuestro equipo le dará seguimiento y te contactará pronto."
       />
 
       <section className="py-16 sm:py-20">

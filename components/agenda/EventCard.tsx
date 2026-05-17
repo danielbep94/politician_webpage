@@ -1,8 +1,9 @@
-import Link from "next/link";
+"use client";
 
 import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 import { buttonVariants } from "@/components/ui/Button";
+import { TrackedLink } from "@/components/ui/TrackedLink";
 import type { Event } from "@/lib/types";
 import { formatDate } from "@/lib/utils";
 
@@ -26,15 +27,18 @@ export function EventCard({ event }: EventCardProps) {
           <p className="text-sm text-slate-500">{event.location}</p>
         </div>
       </div>
-      <Link
+      <TrackedLink
         href={event.ctaHref}
+        trackingLabel={event.ctaLabel}
+        trackingSection="agenda"
         className={buttonVariants({
           variant: "secondary",
           className: "mt-auto w-full sm:w-fit"
         })}
       >
         {event.ctaLabel}
-      </Link>
+      </TrackedLink>
     </Card>
   );
 }
+

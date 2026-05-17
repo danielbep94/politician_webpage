@@ -19,8 +19,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/agenda",
     "/prensa",
     "/contacto",
-    "/sumate",
-    "/gracias"
+    "/sumate"
+    // /gracias is intentionally excluded — noindex confirmation page
   ].map((route) => ({
     url: `${siteConfig.url}${route}`,
     lastModified: new Date()

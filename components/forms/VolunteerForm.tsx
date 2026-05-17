@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { type FormEvent, useState, useTransition } from "react";
+import { type FormEvent, useRef, useState, useTransition } from "react";
 
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
 import { availabilityOptions, volunteerAreas } from "@/lib/constants/mock-content";
-import { trackEvent } from "@/lib/analytics";
+import { trackEvent, trackFormStart } from "@/lib/analytics";
 import {
   volunteerSchema,
   type VolunteerPayload
@@ -35,6 +35,15 @@ export function VolunteerForm() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isPending, startTransition] = useTransition();
+  // Fires form_start only on the first field interaction — never again
+  const hasTrackedStart = useRef(false);
+
+  function handleFirstFocus() {
+    if (!hasTrackedStart.current) {
+      hasTrackedStart.current = true;
+      trackFormStart("volunteer");
+    }
+  }
 
   function updateField<K extends keyof VolunteerPayload>(
     field: K,
@@ -120,6 +129,7 @@ export function VolunteerForm() {
           value={form.name}
           error={errors.name}
           onChange={(event) => updateField("name", event.target.value)}
+          onFocus={handleFirstFocus}
         />
         <Input
           id="volunteer-email"

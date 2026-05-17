@@ -8,3 +8,20 @@ export const siteConfig = {
   defaultOgImage: "/images/og-cover.svg",
   volunteerCtaLabel: "Súmate como voluntario"
 };
+
+/**
+ * Social proof stats — hardcoded for now.
+ * Update these numbers each sprint or wire to a CMS field later.
+ */
+export const socialProof = {
+  volunteersCount: "120+",
+  eventsHeld: 8,
+  proposalsPublished: 4
+};
+
+/** Build a WhatsApp deep-link from a phone number string (any format). */
+export function buildWhatsAppUrl(phone: string, message: string): string {
+  const digits = phone.replace(/\D/g, "");
+  return `https://wa.me/${digits}?text=${encodeURIComponent(message)}`;
+}
+
