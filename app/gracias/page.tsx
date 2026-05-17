@@ -12,8 +12,8 @@ export const metadata = buildPageMetadata({
   pathname: "/gracias"
 });
 
-// Thank-you confirmation pages must not appear in search results
-export const robots = { index: false, follow: false };
+// Override robots to prevent this confirmation page from appearing in search results
+metadata.robots = { index: false, follow: false };
 
 export default function ThankYouPage() {
   return (

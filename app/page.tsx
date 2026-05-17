@@ -20,6 +20,7 @@ import {
 } from "@/lib/sanity/api";
 
 export const metadata = buildPageMetadata({
+  title: "Agenda ciudadana con resultados",
   description:
     "Propuestas claras, agenda pública y participación ciudadana real para construir una comunidad mejor.",
   pathname: "/"
