@@ -16,7 +16,7 @@ const sections = [
     title: "¿Quién recopila tus datos?",
     content:
       `El responsable del tratamiento de tus datos personales es el equipo de ${siteConfig.name}, ` +
-      `contactable en ${process.env.CONTACT_RECIPIENT_EMAIL ?? "equipo@impulsocomunitario.mx"}.`
+      `contactable en ${process.env.CONTACT_RECIPIENT_EMAIL ?? "equipo@politicamoderna.info"}.`
   },
   {
     title: "¿Qué datos recopilamos?",
@@ -50,7 +50,7 @@ const sections = [
     content:
       "Tienes derecho a: acceder a tus datos, rectificarlos si son incorrectos, solicitar su eliminación, " +
       "y oponerte a su tratamiento. Para ejercer cualquiera de estos derechos, envíanos un correo a " +
-      `${process.env.CONTACT_RECIPIENT_EMAIL ?? "equipo@impulsocomunitario.mx"} indicando tu solicitud.`
+      `${process.env.CONTACT_RECIPIENT_EMAIL ?? "equipo@politicamoderna.info"} indicando tu solicitud.`
   },
   {
     title: "Cookies y análisis",

@@ -73,16 +73,43 @@ export const volunteerLeadSchema = defineType({
       type: "datetime",
       group: "meta",
       validation: (Rule) => Rule.required()
+    }),
+    defineField({
+      name: "status",
+      title: "Estado de seguimiento",
+      type: "string",
+      group: "meta",
+      initialValue: "nuevo",
+      options: {
+        list: [
+          { title: "Nuevo", value: "nuevo" },
+          { title: "Contactado", value: "contactado" },
+          { title: "Incorporado", value: "incorporado" },
+          { title: "Inactivo", value: "inactivo" }
+        ],
+        layout: "radio"
+      }
     })
   ],
   preview: {
     select: {
       title: "name",
       area: "area",
+      status: "status",
       submittedAt: "submittedAt"
     },
     prepare(selection) {
-      const metadata = [selection.area, formatSubmittedAt(selection.submittedAt)].filter(Boolean);
+      const statusLabel: Record<string, string> = {
+        nuevo: "🆕 Nuevo",
+        contactado: "📞 Contactado",
+        incorporado: "✅ Incorporado",
+        inactivo: "⛔ Inactivo"
+      };
+      const metadata = [
+        selection.area,
+        statusLabel[selection.status] ?? selection.status,
+        formatSubmittedAt(selection.submittedAt)
+      ].filter(Boolean);
 
       return {
         title: selection.title || "Lead sin nombre",

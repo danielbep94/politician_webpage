@@ -69,19 +69,19 @@ const createActivityCategory = (title: string, slug: string): ActivityCategory =
 const createSeo = (values: Seo): Seo => values;
 
 export const siteSettingsMock: SiteSettings = {
-  title: "Impulso Comunitario",
+  title: "Política Moderna",
   description:
     "Web institucional-campaña híbrida para construir cercanía, rendición de cuentas y movilización ciudadana.",
   url: "http://localhost:3000",
   locale: "es_MX",
-  contactEmail: "equipo@impulsocomunitario.mx",
+  contactEmail: "equipo@politicamoderna.info",
   heroMessage: "Una agenda clara para resolver lo cotidiano con visión de futuro.",
   heroSubheadline:
     "Escuchar, organizar y ejecutar con la comunidad al centro. Propuestas medibles, cercanas y accionables.",
   defaultOgImage: "/images/media/session-horizontal.png",
   defaultOgImageAsset: createImageWithAlt(
     "/images/media/session-horizontal.png",
-    "Imagen social principal de Impulso Comunitario"
+    "Imagen social principal de Política Moderna"
   )
 };
 
@@ -109,7 +109,7 @@ export const candidateMock: Candidate & { portrait?: ImageWithAlt } = {
   ],
   vision:
     "Construir una comunidad donde la seguridad, la movilidad, el empleo y la participación juvenil dejen de ser promesas aisladas y se conviertan en una agenda pública sostenida.",
-  email: "equipo@impulsocomunitario.mx",
+  email: "equipo@politicamoderna.info",
   phone: "+52 55 0000 0000",
   socialLinks: [
     { label: "Instagram", href: "https://instagram.com" },
@@ -407,7 +407,7 @@ export const activitiesMock: Activity[] = [
       slug: eventsMock[0].slug
     },
     seo: createSeo({
-      metaTitle: "Asamblea vecinal y agenda de movilidad segura | Impulso Comunitario",
+      metaTitle: "Asamblea vecinal y agenda de movilidad segura | Política Moderna",
       metaDescription:
         "Conoce los acuerdos, hallazgos y próximos pasos de la asamblea vecinal sobre movilidad segura en Colonia del Valle.",
       ogImage: createImageWithAlt(
@@ -457,7 +457,7 @@ export const activitiesMock: Activity[] = [
       slug: eventsMock[2].slug
     },
     seo: createSeo({
-      metaTitle: "Recorrido territorial de alumbrado y limpieza | Impulso Comunitario",
+      metaTitle: "Recorrido territorial de alumbrado y limpieza | Política Moderna",
       metaDescription:
         "Revisa el diagnóstico levantado en territorio sobre alumbrado, limpieza y seguimiento de incidencias barriales.",
       noindex: false
@@ -495,7 +495,7 @@ export const activitiesMock: Activity[] = [
       createActivityCategory("Juventud y empleo", "juventud-empleo")
     ],
     seo: createSeo({
-      metaTitle: "Encuentro con juventudes y primer empleo local | Impulso Comunitario",
+      metaTitle: "Encuentro con juventudes y primer empleo local | Política Moderna",
       metaDescription:
         "Conoce las necesidades y acuerdos del encuentro comunitario enfocado en primer empleo local para juventudes.",
       noindex: false

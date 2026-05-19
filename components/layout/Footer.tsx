@@ -19,7 +19,7 @@ export async function Footer() {
         {/* Brand column */}
         <div className="space-y-4 md:col-span-2 xl:col-span-1">
           <p className="text-sm font-semibold uppercase tracking-[0.22em] text-white/70">
-            Impulso Comunitario
+            Política Moderna
           </p>
           <p className="max-w-sm font-serif text-3xl leading-tight">
             Cercanía, claridad y seguimiento para construir confianza pública.
@@ -76,7 +76,7 @@ export async function Footer() {
       {/* Copyright bar */}
       <Container className="mt-10 border-t border-white/10 pt-6">
         <p className="text-xs text-white/40">
-          © {new Date().getFullYear()} Impulso Comunitario. Todos los derechos reservados.
+          © {new Date().getFullYear()} Política Moderna. Todos los derechos reservados.
         </p>
       </Container>
     </footer>
