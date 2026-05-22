@@ -1,5 +1,4 @@
 import Link from "next/link";
-import type { SearchParams } from "next/dist/server/request/search-params";
 
 import { Container } from "@/components/layout/Container";
 import { PageIntro } from "@/components/seo/PageIntro";
@@ -20,7 +19,7 @@ metadata.robots = { index: false, follow: false };
 export default async function ThankYouPage({
   searchParams
 }: {
-  searchParams: SearchParams;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const params = await searchParams;
   const isVolunteer = params.origen === "voluntariado";

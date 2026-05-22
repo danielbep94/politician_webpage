@@ -40,10 +40,9 @@ if (process.env.NODE_ENV === "development") {
   warnIfMissing("RESEND_API_KEY", "Confirmation emails will not be sent");
 }
 
-// In production, enforce the minimum required vars
+// In production, enforce only vars that must be present at BUILD time.
+// Runtime secrets (Sanity token, Resend key, revalidate secret) are
+// loaded from GCP Secret Manager via APP_SECRETS — see lib/secrets.ts.
 if (process.env.NODE_ENV === "production") {
   requireEnv("NEXT_PUBLIC_SITE_URL");
-  requireEnv("REVALIDATE_SECRET");
-  requireEnv("SANITY_API_WRITE_TOKEN");
-  requireEnv("RESEND_API_KEY");
 }

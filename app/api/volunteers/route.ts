@@ -1,21 +1,14 @@
 import { NextResponse } from "next/server";
+import { createClient } from "next-sanity";
 import { Resend } from "resend";
 
-import { sanityWriteClient } from "@/lib/sanity/client";
 import { getIp, isRateLimited } from "@/lib/rate-limit";
 import { volunteerSchema } from "@/lib/validation/volunteer";
+import { getSecrets } from "@/lib/secrets";
 import {
   volunteerConfirmationHtml,
   volunteerConfirmationText
 } from "@/lib/emails/volunteerConfirmation";
-
-const resend = process.env.RESEND_API_KEY
-  ? new Resend(process.env.RESEND_API_KEY)
-  : null;
-
-const FROM_ADDRESS = "Política Moderna <noreply@politicamoderna.info>";
-const TEAM_EMAIL =
-  process.env.CONTACT_RECIPIENT_EMAIL ?? "equipo@politicamoderna.info";
 
 export async function POST(request: Request) {
   const ip = getIp(request);
@@ -47,10 +40,22 @@ export async function POST(request: Request) {
     }
 
     const { name, email, phone, community, area, availability } = result.data;
+    const secrets = await getSecrets();
 
-    // ── P2: Duplicate guard ───────────────────────────────────────────────
-    if (sanityWriteClient) {
-      const existing = await sanityWriteClient.fetch<string | null>(
+    // ── Build write client from secrets ───────────────────────────────────
+    const writeClient = secrets.sanity.writeToken
+      ? createClient({
+          projectId: secrets.sanity.projectId,
+          dataset: secrets.sanity.dataset,
+          apiVersion: secrets.sanity.apiVersion,
+          token: secrets.sanity.writeToken,
+          useCdn: false
+        })
+      : null;
+
+    // ── Duplicate guard ───────────────────────────────────────────────────
+    if (writeClient) {
+      const existing = await writeClient.fetch<string | null>(
         `*[_type == "volunteerLead" && email == $email][0]._id`,
         { email }
       );
@@ -68,8 +73,8 @@ export async function POST(request: Request) {
     }
 
     // ── Persist to Sanity ─────────────────────────────────────────────────
-    if (sanityWriteClient) {
-      await sanityWriteClient.create({
+    if (writeClient) {
+      await writeClient.create({
         _type: "volunteerLead",
         name,
         email,
@@ -84,28 +89,29 @@ export async function POST(request: Request) {
       console.info("[volunteer-lead]", result.data);
     }
 
-    // ── P1: Send emails (fire-and-forget — never block the HTTP response) ─
-    if (resend) {
+    // ── Emails (fire-and-forget) ──────────────────────────────────────────
+    if (secrets.resend.apiKey) {
+      const resend = new Resend(secrets.resend.apiKey);
       const emailData = { name, email, area, availability, community };
 
       // Confirmation to volunteer
       resend.emails
         .send({
-          from: FROM_ADDRESS,
+          from: secrets.resend.fromAddress,
           to: email,
           subject: `¡Gracias por sumarte, ${name.split(" ")[0]}! — Política Moderna`,
           html: volunteerConfirmationHtml(emailData),
           text: volunteerConfirmationText(emailData)
         })
         .catch((err) =>
-          console.error("[volunteer-email] confirmation send failed:", err)
+          console.error("[volunteer-email] confirmation failed:", err)
         );
 
       // Internal alert to campaign team
       resend.emails
         .send({
-          from: FROM_ADDRESS,
-          to: TEAM_EMAIL,
+          from: secrets.resend.fromAddress,
+          to: secrets.resend.teamEmail,
           subject: `🆕 Nuevo voluntario: ${name} · ${area}`,
           text: [
             `Nombre:         ${name}`,
@@ -115,26 +121,20 @@ export async function POST(request: Request) {
             `Área:           ${area}`,
             `Disponibilidad: ${availability}`,
             ``,
-            `Ver leads en Sanity: ${process.env.NEXT_PUBLIC_SANITY_STUDIO_URL ?? "https://politicamoderna.sanity.studio"}/desk/volunteerLead`
+            `Ver en Sanity: ${secrets.site.url}/studio/desk/volunteerLead`
           ].join("\n")
         })
         .catch((err) =>
-          console.error("[volunteer-email] internal alert send failed:", err)
+          console.error("[volunteer-email] internal alert failed:", err)
         );
     } else {
-      console.info("[volunteer-email] RESEND_API_KEY not set — skipping emails");
+      console.info("[volunteer-email] No Resend API key — skipping emails.");
     }
 
-    return NextResponse.json({
-      success: true,
-      message: "Registro completado."
-    });
+    return NextResponse.json({ success: true, message: "Registro completado." });
   } catch {
     return NextResponse.json(
-      {
-        success: false,
-        message: "Ocurrió un error al procesar el registro."
-      },
+      { success: false, message: "Ocurrió un error al procesar el registro." },
       { status: 500 }
     );
   }

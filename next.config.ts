@@ -1,5 +1,8 @@
 import type { NextConfig } from "next";
 
+// Security headers for the public-facing site.
+// Intentionally NOT applied to /studio routes — X-Frame-Options: DENY
+// breaks the Sanity Studio UI, and the Studio manages its own CSP.
 const securityHeaders = [
   { key: "X-Frame-Options", value: "DENY" },
   { key: "X-Content-Type-Options", value: "nosniff" },
@@ -20,7 +23,8 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        source: "/(.*)",
+        // Apply strict security headers to all routes EXCEPT /studio
+        source: "/((?!studio).*)",
         headers: securityHeaders
       }
     ];

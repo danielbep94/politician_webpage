@@ -6,6 +6,8 @@ import {
   getSanityRevalidationPaths,
   getSanityRevalidationTags
 } from "@/lib/sanity/tags";
+import { getSecrets } from "@/lib/secrets";
+
 
 type RevalidatePayload = {
   _id?: string;
@@ -59,7 +61,8 @@ function revalidatePaths(paths: string[]) {
 }
 
 export async function GET(request: NextRequest) {
-  const secret = process.env.REVALIDATE_SECRET;
+  const { sanity } = await getSecrets();
+  const secret = sanity.revalidateSecret;
 
   if (!secret) {
     return NextResponse.json(
@@ -108,7 +111,8 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const secret = process.env.REVALIDATE_SECRET;
+  const { sanity } = await getSecrets();
+  const secret = sanity.revalidateSecret;
 
   if (!secret) {
     return NextResponse.json(

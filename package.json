@@ -14,6 +14,7 @@
     "seed:sanity": "tsx scripts/seed-sanity.ts"
   },
   "dependencies": {
+    "@google-cloud/secret-manager": "^6.1.2",
     "@portabletext/react": "^3.2.0",
     "@sanity/image-url": "^1.1.0",
     "groq": "^4.1.0",

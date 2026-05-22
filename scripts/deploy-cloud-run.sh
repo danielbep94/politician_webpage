@@ -39,19 +39,24 @@ if [[ ! -f "$CLOUD_RUN_ENV_FILE" ]]; then
   exit 1
 fi
 
-echo "Deploying Cloud Run service: $SERVICE_NAME"
-gcloud run deploy "$SERVICE_NAME" \
+CLOUD_BUILD_CONFIG="${CLOUD_BUILD_CONFIG:-"$ROOT_DIR/config/cloudbuild.yaml"}"
+
+if [[ ! -f "$CLOUD_BUILD_CONFIG" ]]; then
+  echo "Missing Cloud Build config: $CLOUD_BUILD_CONFIG" >&2
+  exit 1
+fi
+
+echo "Submitting Cloud Build for service: $SERVICE_NAME"
+# $COMMIT_SHA is only available in triggered builds; derive it locally for manual runs.
+COMMIT_SHA="$(git -C "$ROOT_DIR" rev-parse --short HEAD 2>/dev/null || echo "manual")"
+
+gcloud builds submit "$ROOT_DIR" \
   --project="$PROJECT_ID" \
   --region="$REGION" \
-  --source="$ROOT_DIR" \
-  --allow-unauthenticated \
-  --memory="$CLOUD_RUN_MEMORY" \
-  --cpu="$CLOUD_RUN_CPU" \
-  --min-instances="$CLOUD_RUN_MIN_INSTANCES" \
-  --max-instances="$CLOUD_RUN_MAX_INSTANCES" \
-  --env-vars-file="$CLOUD_RUN_ENV_FILE"
+  --config="$CLOUD_BUILD_CONFIG" \
+  --substitutions="COMMIT_SHA=${COMMIT_SHA}"
 
-SERVICE_URL="$(gcloud run services describe "$SERVICE_NAME" \
+SERVICE_URL="$(CLOUDSDK_CONFIG="${CLOUDSDK_CONFIG}" gcloud run services describe "$SERVICE_NAME" \
   --project="$PROJECT_ID" \
   --region="$REGION" \
   --format='value(status.url)')"
