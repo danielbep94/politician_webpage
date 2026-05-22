@@ -1,4 +1,4 @@
-# Contribuir a Impulso Comunitario
+# Contribuir a Política Moderna
 
 ¡Gracias por tu interés en contribuir a este proyecto! Aquí encontrarás las guías para hacerlo de forma ordenada.
 
@@ -9,7 +9,7 @@
 1. **Fork** del repositorio.
 2. Crea una **rama** desde `main` con el nombre `feat/nombre-descriptivo` o `fix/descripcion-del-bug`.
 3. Desarrolla tu cambio con commits claros.
-4. Abre un **Pull Request** con descripción del cambio, contexto y cómo probarlo.
+4. Abre un **Pull Request** usando la plantilla incluida. Describe el cambio, el contexto y cómo probarlo.
 
 ---
 
@@ -47,6 +47,8 @@ npm run lint        # Sin warnings de ESLint
 npm run build       # Build exitoso
 ```
 
+El CI de GitHub Actions (`ci.yml`) ejecuta estos mismos tres pasos automáticamente en cada PR.
+
 ---
 
 ## Estructura de componentes
@@ -58,15 +60,18 @@ npm run build       # Build exitoso
 
 ---
 
-## Variables de entorno
+## Variables de entorno y secretos
 
-Nunca subas `.env.local` ni secretos. Usa `.env.example` para documentar nuevas variables.
+- Nunca subas `.env.local`, `config/gcp.env`, `config/cloudrun.env.yaml` ni `config/cloudbuild.yaml`. Todos están en `.gitignore`.
+- Documenta cualquier nueva variable de entorno en `.env.example`.
+- Los secretos de servidor van en GCP Secret Manager como parte del JSON bundle `APP_SECRETS`. Ver `docs/gcp-secrets-migration.md`.
 
 ---
 
 ## Reportar bugs
 
-Abre un issue con:
+Usa la plantilla de issue incluida en `.github/ISSUE_TEMPLATE/bug_report.md`. Incluye:
+
 - Descripción clara del problema
 - Pasos para reproducirlo
 - Comportamiento esperado vs. actual

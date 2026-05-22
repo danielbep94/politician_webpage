@@ -2,7 +2,21 @@
 ### Política Moderna · Sitio de campaña
 
 > **Audiencia:** Equipo de comunicación y marketing.  
-> **Nivel técnico requerido:** Ninguno. Solo necesitas acceso al Studio y un navegador.
+> **Nivel técnico requerido:** Ninguno. Solo necesitas acceso al Studio y un navegador.  
+> **¿Buscas actualizar imágenes o videos?** → Ver también [`guia-visual-actualizacion-contenido.md`](./guia-visual-actualizacion-contenido.md)
+
+---
+
+## Antes de empezar — Verificación rápida
+
+```
+✅ Tienes acceso a https://politicamoderna.info/studio
+✅ Puedes iniciar sesión con tu cuenta de Google
+✅ Ves el menú lateral con: Configuración, Editorial, Institucional, Operación
+✅ El contenido que vas a publicar fue aprobado por el área de comunicación
+```
+
+> Si no puedes ver el Studio o te falta acceso a alguna sección, contacta al equipo técnico. No compartas credenciales.
 
 ---
 
@@ -24,6 +38,8 @@
 14. [Operación — Leads de Voluntariado](#14-operación--leads-de-voluntariado)
 15. [Flujo de publicación](#15-flujo-de-publicación)
 16. [Tarjeta de referencia rápida](#16-tarjeta-de-referencia-rápida)
+17. [Solución de problemas](#17-solución-de-problemas)
+18. [Glosario](#18-glosario)
 
 ---
 
@@ -409,24 +425,29 @@ Abre cualquier lead → pestaña **Meta** → campo **Estado de seguimiento**:
 ### Publicar un documento nuevo
 
 ```
-1. Haz clic en el tipo de contenido en el menú
-2. Clic en "+ Create" (esquina superior derecha)
-3. Llena todos los campos marcados como obligatorios
-4. Verifica que no haya errores de validación (indicador rojo)
-5. Haz clic en "Publish" (botón azul, esquina superior derecha)
+PASO 1  →  Haz clic en el tipo de contenido en el menú lateral
+PASO 2  →  Clic en "+ Create" (esquina superior derecha)
+PASO 3  →  Llena todos los campos marcados como obligatorios
+           → Los campos con * o borde rojo son OBLIGATORIOS
+PASO 4  →  Genera el Slug: clic en el botón "Generate" junto al campo Slug
+PASO 5  →  Verifica que no haya errores de validación (indicadores rojos)
+PASO 6  →  Clic en "Publish" (botón azul, esquina superior derecha)
+PASO 7  →  El botón cambia a "Published" (gris) ✅
+PASO 8  →  Abre https://politicamoderna.info y verifica que el cambio apareció
+           → Puede tardar hasta 60 segundos en reflejarse
 ```
 
 ### Editar un documento existente
 
 ```
-1. Busca el documento en la lista
-2. Haz clic para abrirlo
-3. Edita los campos necesarios
-4. Clic en "Publish" para guardar los cambios
+PASO 1  →  Busca el documento en la lista (usa la barra de búsqueda)
+PASO 2  →  Haz clic para abrirlo
+PASO 3  →  Edita los campos necesarios
+PASO 4  →  Clic en "Publish" para guardar los cambios en el sitio
 ```
 
 > [!WARNING]
-> Los cambios guardados pero **no publicados** no aparecen en el sitio público. Siempre verifica que el botón diga "Published" (gris) y no "Publish" (azul) cuando termines.
+> Los cambios guardados pero **no publicados** no aparecen en el sitio público. Siempre verifica que el botón diga "Published" (gris, sin punto azul) cuando termines.
 
 ### Descartar cambios sin publicar
 
@@ -435,6 +456,15 @@ Menú de tres puntos (⋯) → **Discard changes**
 ### Restaurar versiones anteriores
 
 Menú de tres puntos (⋯) → **Restore** → selecciona la versión a restaurar
+
+### Estado del botón — guía rápida
+
+| Estado del botón | Significado |
+|---|---|
+| 🔵 **Publish** (azul) | Cambios pendientes — aún NO están en el sitio |
+| ⚪ **Published** (gris) | Publicado — ya está visible en el sitio |
+| 🔵 **Publish** con punto azul | Tienes cambios locales no publicados |
+| 🔴 Botón inactivo | Hay campos obligatorios incompletos o con error |
 
 ---
 
@@ -459,11 +489,50 @@ Menú de tres puntos (⋯) → **Restore** → selecciona la versión a restaura
 ### Regla de oro: Agenda vs. Actividad
 
 ```
-Evento aún no ocurre  →  Agenda
-Evento ya ocurrió     →  Actividades
+┌──────────────────────────────────────────────────────┐
+│  El evento AÚN NO ocurre  →  Crea un evento en AGENDA │
+│  El evento YA OCURRIÓ    →  Crea una ACTIVIDAD        │
+└──────────────────────────────────────────────────────┘
 ```
 
 ---
 
-*Documento generado por el equipo técnico para uso interno del equipo de comunicación y marketing.*  
-*Para cambios en el CMS o acceso de nuevos usuarios, contactar al equipo de desarrollo.*
+## 17. Solución de problemas
+
+| Problema | Causa probable | Solución |
+|---|---|---|
+| El botón "Publish" está inactivo | Campos obligatorios vacíos o con error | Busca los indicadores rojos en el formulario y completa esos campos |
+| Publiqué algo con un error | — | Edita el campo → clic en "Publish" de nuevo para sobrescribir |
+| El sitio no refleja mis cambios | El caché tarda en actualizarse | Espera 30–60 segundos y recarga la página del sitio |
+| Subí una imagen incorrecta | — | Pasa el cursor sobre la imagen → clic en ✕ → sube la correcta |
+| El Studio dice "Conflict" o "Draft" | Otro usuario editó el mismo documento | Usa el menú ⋯ → "Restore" para ver versiones o contacta al equipo |
+| No veo una sección del menú | Falta de permisos de rol | Contacta al equipo técnico para que asigne el rol `Editor` |
+| Error al guardar (banner rojo) | Problema de conexión o sesión expirada | Recarga la página, inicia sesión de nuevo e intenta de nuevo |
+| Los cambios del hero no aparecen | Se olvidó publicar | Abre "Configuración del sitio" → verifica que el botón diga "Published" |
+
+> [!NOTE]
+> Si el problema persiste más de 5 minutos, contacta al equipo técnico con una captura de pantalla del error.
+
+---
+
+## 18. Glosario
+
+| Término | Definición |
+|---|---|
+| **Studio** | El panel de administración de contenido en `politicamoderna.info/studio` |
+| **Publish** | Acción de hacer visible un documento en el sitio público |
+| **Draft** | Borrador: cambios guardados pero no publicados aún |
+| **Slug** | La parte de la URL que identifica un documento. Ej: `/noticias/mi-primer-articulo` |
+| **Singleton** | Documento único — solo puede existir uno (ej. Configuración del sitio, Perfil público) |
+| **ISR** | Regeneración Incremental Estática — el mecanismo que actualiza el sitio en segundos al publicar |
+| **Webhook** | Señal automática que Sanity envía al sitio cuando publicas, para actualizar el caché |
+| **Alt text** | Texto alternativo que describe una imagen para personas con discapacidad visual y para SEO |
+| **OG Image** | Imagen que aparece al compartir el sitio en WhatsApp, Twitter o Facebook |
+| **Featured / Destacado** | Contenido marcado para aparecer en módulos curados de la portada |
+| **CTA** | Call To Action — botón o enlace que invita a hacer algo ("Confirmar asistencia", "Leer más") |
+| **Lead** | Registro de una persona interesada en ser voluntaria |
+
+---
+
+*Documento preparado por el equipo técnico para uso interno del equipo de comunicación y marketing.*  
+*Última actualización: Mayo 2026 — Para cambios en el CMS o nuevos accesos, contactar al equipo de desarrollo.*

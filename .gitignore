@@ -12,4 +12,5 @@ coverage
 .gcloud-temp
 config/gcp.env
 config/cloudrun.env.yaml
+config/cloudbuild.yaml
 .turbo

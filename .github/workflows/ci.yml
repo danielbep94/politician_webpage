@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    name: Lint · TypeCheck · Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Production build
+        run: npm run build
+        env:
+          # Required by lib/env.ts in production mode
+          NEXT_PUBLIC_SITE_URL: https://politicamoderna.info
+          NEXT_PUBLIC_SITE_NAME: Política Moderna
+          NEXT_PUBLIC_TWITTER_HANDLE: "@politicamoderna"
+          # Sanity — CI uses empty values (mock mode)
+          NEXT_PUBLIC_SANITY_PROJECT_ID: ""
+          NEXT_PUBLIC_SANITY_DATASET: production
+          NEXT_PUBLIC_SANITY_API_VERSION: "2025-02-19"
+          NEXT_PUBLIC_SANITY_STUDIO_URL: ""
+          SANITY_STUDIO_PROJECT_ID: ""
+          SANITY_STUDIO_DATASET: production
+          # Secrets — placeholder values for build validation only
+          SANITY_API_WRITE_TOKEN: ""
+          REVALIDATE_SECRET: ci-placeholder-secret
+          RESEND_API_KEY: ""
+          CONTACT_RECIPIENT_EMAIL: ci@example.com
